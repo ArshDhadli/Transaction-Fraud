@@ -1,34 +1,42 @@
-# Fraud Detection System
+# Transaction Fraud Detection App
 
-A web application for detecting fraudulent transactions using machine learning.
+A Streamlit application that helps detect potentially fraudulent transactions based on transaction amount and account balance patterns.
 
 ## Features
+- Real-time fraud detection
+- User-friendly interface
+- Risk score calculation
+- Detailed transaction analysis
 
-- Predict whether a transaction is fraudulent based on transaction details
-- Visualize transaction data and patterns
-- User-friendly interface built with Streamlit
+## Deployment
+This app is deployed on Streamlit Cloud. You can access it at: [Your Streamlit URL will appear here after deployment]
 
-## Setup Instructions
+## Local Development
+To run this app locally:
 
-1. Install the required packages:
-   ```
-   pip install -r requirements.txt
-   ```
+1. Clone the repository
+2. Install the requirements:
+```bash
+pip install -r requirements.txt
+```
+3. Run the app:
+```bash
+streamlit run app.py
+```
 
-2. Run the Streamlit app:
-   ```
-   streamlit run app.py
-   ```
-
-3. Open the app in your browser:
-   The app will typically be available at http://localhost:8501
+## Requirements
+- Python 3.7+
+- Streamlit
+- NumPy
+- scikit-learn
 
 ## Project Structure
-
-- `app.py`: Main Streamlit application
-- `fraud_detection_model.pkl`: Trained machine learning model
-- `synthetic_data.csv`: Dataset containing transaction information
-- `requirements.txt`: List of Python package dependencies
+```
+Project/
+├── app.py              # Main application file
+├── requirements.txt    # Python dependencies
+└── README.md          # This file
+```
 
 ## How to Use
 
