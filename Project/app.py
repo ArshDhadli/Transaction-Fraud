@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
@@ -10,7 +9,7 @@ st.set_page_config(page_title="Fraud Detection System", layout="wide")
 def create_model():
     # Generate synthetic training data
     np.random.seed(42)
-    X_train = np.random.rand(100, 5)  # 5 features
+    X_train = np.random.rand(100, 3)  # 3 features
     y_train = np.zeros(100)
     
     # Set some fraud patterns
@@ -42,19 +41,15 @@ def main():
     
     with col2:
         new_balance = st.number_input('New Balance', min_value=0.0, value=4000.0)
-        transaction_type = st.selectbox('Transaction Type', 
-                                      ['PAYMENT', 'TRANSFER', 'CASH_OUT', 'DEBIT', 'CASH_IN'])
     
     # Normalize inputs
     amount_norm = amount / 10000  # Assuming max amount is 10000
     old_balance_norm = old_balance / 10000
     new_balance_norm = new_balance / 10000
-    type_encoded = ['PAYMENT', 'TRANSFER', 'CASH_OUT', 'DEBIT', 'CASH_IN'].index(transaction_type) / 4
-    balance_change = (new_balance - old_balance) / 10000
     
     # Make prediction
     if st.button('Check Transaction'):
-        features = np.array([[amount_norm, old_balance_norm, new_balance_norm, type_encoded, balance_change]])
+        features = np.array([[amount_norm, old_balance_norm, new_balance_norm]])
         prediction = model.predict(features)[0]
         probability = model.predict_proba(features)[0][1]
         
@@ -62,14 +57,6 @@ def main():
             st.error(f"⚠️ This transaction is potentially fraudulent! (Probability: {probability:.2%})")
         else:
             st.success(f"✅ This transaction appears legitimate. (Probability: {probability:.2%})")
-        
-        # Display feature importance
-        st.write("### Feature Importance")
-        importance = pd.DataFrame({
-            'Feature': ['Amount', 'Old Balance', 'New Balance', 'Type', 'Balance Change'],
-            'Importance': model.feature_importances_
-        })
-        st.bar_chart(importance.set_index('Feature'))
 
 if __name__ == '__main__':
     main() 
