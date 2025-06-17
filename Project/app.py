@@ -59,26 +59,9 @@ def main():
     # Create model
     model = create_model()
     
-    # Input fields with better formatting
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        amount = st.number_input(
-            'Transaction Amount ($)',
-            min_value=0.0,
-            value=1000.0,
-            step=100.0,
-            format="%.2f"
-        )
-    
-    with col2:
-        balance = st.number_input(
-            'Account Balance ($)',
-            min_value=0.0,
-            value=5000.0,
-            step=100.0,
-            format="%.2f"
-        )
+    # Input fields
+    amount = st.number_input('Transaction Amount ($)', min_value=0.0, value=1000.0)
+    balance = st.number_input('Account Balance ($)', min_value=0.0, value=5000.0)
     
     # Normalize inputs
     amount_norm = amount / 10000  # Assuming max amount is 10000
