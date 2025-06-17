@@ -14,4 +14,4 @@ textColor = "#262730"
 font = "sans serif"
 
 [python]
-version = "3.11.7" 
+version = "3.13.5" 
