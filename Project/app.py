@@ -9,15 +9,14 @@ st.set_page_config(page_title="Fraud Detection System", layout="wide")
 def create_model():
     # Generate synthetic training data
     np.random.seed(42)
-    X_train = np.random.rand(100, 3)  # 3 features
+    X_train = np.random.rand(100, 2)  # 2 features
     y_train = np.zeros(100)
     
     # Set some fraud patterns
     for i in range(20):  # 20% fraud rate
         idx = np.random.randint(0, 100)
         X_train[idx, 0] = np.random.uniform(0.8, 1.0)  # High amount
-        X_train[idx, 1] = np.random.uniform(0.8, 1.0)  # High balance
-        X_train[idx, 2] = 0  # Balance drops to 0
+        X_train[idx, 1] = 0  # Balance drops to 0
         y_train[idx] = 1
     
     # Train model
@@ -33,23 +32,16 @@ def main():
     model = create_model()
     
     # Input fields
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        amount = st.number_input('Transaction Amount', min_value=0.0, value=1000.0)
-        old_balance = st.number_input('Original Balance', min_value=0.0, value=5000.0)
-    
-    with col2:
-        new_balance = st.number_input('New Balance', min_value=0.0, value=4000.0)
+    amount = st.number_input('Transaction Amount', min_value=0.0, value=1000.0)
+    old_balance = st.number_input('Original Balance', min_value=0.0, value=5000.0)
     
     # Normalize inputs
     amount_norm = amount / 10000  # Assuming max amount is 10000
-    old_balance_norm = old_balance / 10000
-    new_balance_norm = new_balance / 10000
+    balance_norm = old_balance / 10000
     
     # Make prediction
     if st.button('Check Transaction'):
-        features = np.array([[amount_norm, old_balance_norm, new_balance_norm]])
+        features = np.array([[amount_norm, balance_norm]])
         prediction = model.predict(features)[0]
         probability = model.predict_proba(features)[0][1]
         
